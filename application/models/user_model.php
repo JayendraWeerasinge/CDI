@@ -64,6 +64,7 @@ class user_model extends CI_Model
             $this->db->like('username', $query);
             $this->db->or_like('email', $query);
 			$this->db->or_like('post', $query);
+			$this->db->or_like('type', str_replace(' ', '_',$query));
         }
         $this->db->order_by('username', 'ASC');
         return $this->db->get();

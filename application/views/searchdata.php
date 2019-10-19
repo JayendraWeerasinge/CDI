@@ -18,15 +18,21 @@
         <div class="col-sm-10">
 
 
-            <?php
-            if($_SESSION['account_post']!='qac_head'){
-                ?>
+
                 <span class="text-danger"><?php echo form_error('pw')?></span>
                 <span class="text-danger"><?php echo form_error('confirm_pw')?></span>
 
                 <div class="container">
                     <div align="right">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
+						<?php
+						if(($this->session->userdata('username')==$_SESSION['account_username'])||( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute')){
+							?>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
+
+						<?php
+						}
+						?>
+
                     </div>
                     <div class="modal fade" id="delete" role="dialog">
                         <div class="modal-dialog">
@@ -66,9 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <?php
-            }
-            ?>
+
 
 
             <hr>

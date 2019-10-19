@@ -71,7 +71,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon" style="height: 50px;">Search</span>
-                        <input type="text" name="search_text" id="search_text" placeholder="Search by User Name, Email or Post" class="form-control" style="width: 450px;" />
+                        <input type="text" name="search_text" id="search_text" placeholder="Search by User Name, Email, Type or Post" class="form-control" style="width: 450px;" />
                     </div>
                 </div>
 
