@@ -31,16 +31,7 @@ $url= basename($actual_link);
 		<ul class="nav navbar-nav navbar-right">
 
 
-					<?php
-					if ($this->session->userdata('username') == ''){ ?>
-						<li class="<?php if($url == "signUp"){echo 'active';} ?>"><a href="<?php echo site_url('login_controller/signUp');?>">
-								<!--<span class="glyphicon glyphicon-new-window" style="color: white;"></span>-->
-								<?php
-						echo "<span style='color: #f8fff4'>";
-						echo 'Sign Up';
-					}?></a>
-			</li>
-
+				
 			<li>
 				<?php
 				if ($this->session->userdata('username') != ''){
@@ -56,9 +47,7 @@ $url= basename($actual_link);
 						?>
 					</a>
 					<?php
-				}else{
-
-				?>
+				}else{?>
 				<a href="<?php echo site_url('login_controller/login');?>"name="submit" value="submit"  style="color:mediumturquoise;">
 					<span class="glyphicon glyphicon-log-in"></span><?php
 					echo ' Login ';

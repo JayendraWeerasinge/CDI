@@ -32,9 +32,9 @@ class live_search extends CI_Controller{
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
        <td>' . $row->password . '</td>
-       <td>' . $row->type . '</td>
+       <td>' .str_replace('_', ' ', $row->type ). '</td>
        <td>' . $row->email . '</td>
-       <td>' . $row->post . '</td>
+       <td>' .str_replace('_', ' ',strtoupper( $row->post)) . '</td>
        <td>
            <form method="post" action="'. base_url('login_controller/filter').'">
                 <button class="btn btn-info" name="submit" value="Submit">View</button>

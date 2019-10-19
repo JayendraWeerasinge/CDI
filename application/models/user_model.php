@@ -92,7 +92,7 @@ class user_model extends CI_Model
 	}
 
 	function fetch_accounts_qac(){
-		$this->db->where("type",'QAC');
+		$this->db->where("type",'qac');
 		$query = $this->db->get("user");
 		return $query;
 	}
