@@ -19,6 +19,7 @@ class live_search extends CI_Controller{
        <th>Password</th>
        <th>Account type</th>
        <th>E-mail</th>
+        <th>Post</th>
        <th>Edit / Delete</th>
       </tr>
   ';
@@ -33,6 +34,7 @@ class live_search extends CI_Controller{
        <td>' . $row->password . '</td>
        <td>' . $row->type . '</td>
        <td>' . $row->email . '</td>
+       <td>' . $row->post . '</td>
        <td>
            <form method="post" action="'. base_url('login_controller/filter').'">
                 <button class="btn btn-info" name="submit" value="Submit">View</button>
@@ -40,6 +42,7 @@ class live_search extends CI_Controller{
                 <input type="text" name="password" value="' . $row->password . '" class="hide">
                 <input type="text" name="type" value="' . $row->type . '" class="hide">
                 <input type="text" name="email" value="' . $row->email . '" class="hide">
+                 <input type="text" name="post" value="' . $row->post . '" class="hide">
            </form>
        </td>
       </tr>

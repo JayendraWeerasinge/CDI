@@ -35,7 +35,6 @@
             <center>
 			<div class="btn-group btn-group-justified" style="width: 95%;">
 				<a class="btn btn-primary">Admin Settings</a>
-				<a href="<?php echo base_url('login_controller/qacForm'); ?>" class="btn btn-info">Create QAC Accounts</a>
 				<a href="<?php echo base_url('login_controller/userForm'); ?>" class="btn btn-info">Create User Accounts</a>
 			</div>
             </center>
@@ -72,7 +71,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon" style="height: 50px;">Search</span>
-                        <input type="text" name="search_text" id="search_text" placeholder="Search by User Name or Email" class="form-control" style="width: 450px;" />
+                        <input type="text" name="search_text" id="search_text" placeholder="Search by User Name, Email or Post" class="form-control" style="width: 450px;" />
                     </div>
                 </div>
 

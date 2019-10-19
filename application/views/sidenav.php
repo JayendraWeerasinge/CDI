@@ -30,8 +30,6 @@ $url= basename($actual_link);
 				?>
 					<li class="<?php if($url == "manageAccount"){
 						echo 'active';
-					}elseif ($url == "qacForm"){
-						echo 'active';
 					}elseif ($url == "userForm"){
 						echo 'active';
 					}

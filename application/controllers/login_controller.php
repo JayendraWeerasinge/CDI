@@ -69,6 +69,7 @@ class login_controller extends CI_Controller
         redirect(base_url() . 'login_controller/login');
     }
 
+    /* ---------------------------------------------------------------useless
     public function QAC_Create_validation()
     {
         $this->load->library('form_validation');
@@ -96,17 +97,18 @@ class login_controller extends CI_Controller
         } else {
             $this->qacForm();
         }
-    }
+    }*/
 
-    public function qacForm()
-    {
-        $this->load->view('qacform');
-    }
-
-    public function qacinserted()
-    {
-        $this->qacForm();
-    }
+	/*-------------------------------------------------------------useless
+	public function qacForm()
+	{
+		$this->load->view('qacform');
+	}*/
+/*-------------------------------------------------------------useless
+	public function qacinserted()
+	{
+		$this->qacForm();
+	}*/
 
     //----------------------------------------------------------------------QAC
 
@@ -117,14 +119,17 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('post', 'Post', 'required');
+		$this->form_validation->set_rules('type', 'Type', 'required');
 
         if ($this->form_validation->run()) {
             $this->load->model('user_model');
             $data = array(
                 "username" => $this->input->post("username"),
                 "password" => $this->input->post("password"),
-                "type" => "User",
-                "email" => $this->input->post("email")
+                "type" => $this->input->post("type"),
+                "email" => $this->input->post("email"),
+				"post" => $this->input->post("post")
             );
             $this->user_model->insert_data($data);
             ?>
@@ -759,7 +764,6 @@ class login_controller extends CI_Controller
 	}
 
 	//------------------------------------------------------------------------------------------------------------------
-
 
 
 }

@@ -21,8 +21,6 @@
 					<div class="btn-group btn-group-justified " style="width: 95%;">
 						<a href="<?php echo base_url('login_controller/manageAccount'); ?>" class="btn btn-info">Admin
 							Settings</a>
-						<a href="<?php echo base_url('login_controller/qacForm'); ?>" class="btn btn-info">Create QAC
-							Accounts</a>
 						<span class="btn btn-primary">Create User Accounts</span>
 					</div>
 				</center>
@@ -35,6 +33,25 @@
 				<div class="form">
 					<hr>
 					<span class="form " style="color: midnightblue;"><h2><center>Create User Account</center></h2></span>
+					<div class="form-group">
+						<label for="username">Type</label>
+						<select class="form-control" name="type" id="a_type">
+							<option class="text-muted"></option>
+							<option name="type" value="under_graduate">Under Graduate</option>
+							<option name="type" value="post_graduate">Post Graduate</option>
+							<option name="type" value="external">External</option>
+							<option name="type" value="qac">QAC</option>
+							<option name="type" value="head_of_institute">Head of institute</option>
+						</select>
+						<span class="text-danger"><?php echo form_error('type')?></span>
+					</div>
+					<div class="form-group">
+						<label for="username">Post</label>
+						<select class="form-control" name="post" id="a_post">
+							<option class="text-muted"></option>
+						</select>
+						<span class="text-danger"><?php echo form_error('post')?></span>
+					</div>
 					<div class="form-group">
 						<label for="username">Username</label>
 						<input type="text" class="form-control" id="username" name="username"
@@ -71,3 +88,59 @@
 <?php include 'footer.php';?>
 </body>
 </html>
+
+
+<script>
+    $(document).ready(function(){
+        $('#a_type').change(function(){
+            var a_type = $('#a_type').val();
+            if(a_type == 'head_of_institute')
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option value="head_of_institute">Head of institute</option>');
+
+                    }
+                });
+            }
+            if(a_type == 'qac')
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option value="qac">QAC</option>');
+
+                    }
+                });
+            }
+            if((a_type != 'qac') && (a_type != 'head_of_institute'))
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option value=""></option>' +
+                            '<option name="post" value="user">User</option>' +
+                            '<option name="post" value="head_of_course">Head of Course</option>' +
+                            '<option name="post" value="course_coordinator">Course Coordinator</option>');
+
+                    }
+                });
+            }
+
+
+
+
+        });
+
+    });
+</script>
