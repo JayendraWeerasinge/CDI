@@ -13,13 +13,7 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'required');
        // $this->form_validation->set_rules('type', 'type', 'required');
 
-
-
-
-
         if ($this->form_validation->run()) {
-
-
 
             $username = $this->input->post('username');
             $password = $this->input->post('password');
@@ -35,6 +29,7 @@ class login_controller extends CI_Controller
 
 					if(($username==$row->username)&&($password = $row->password)){
 						$_SESSION['type']=$row->type;
+						$_SESSION['post']=$row->post;
 					}
 				}
 			}
@@ -229,7 +224,7 @@ class login_controller extends CI_Controller
             redirect(base_url() . "login_controller/manageAccount");
 
         }else{
-            $this->filter();
+            $this->refilter();
         }
 
     }
@@ -257,10 +252,6 @@ class login_controller extends CI_Controller
     }
 //-----------------------------------------------------------------------------------------
     public function refilter(){
-        $_SESSION['account_username'];
-        $_SESSION['account_password'];
-        $_SESSION['account_type'];
-        $_SESSION['account_email'];
         $this->load->view('searchdata');
     }
 
@@ -270,6 +261,7 @@ class login_controller extends CI_Controller
         $_SESSION['account_password']=$this->input->post('password');
         $_SESSION['account_type']=$this->input->post('type');
         $_SESSION['account_email']=$this->input->post('email');
+		$_SESSION['account_post']=$this->input->post('post');
         $this->load->view('searchdata');
     }
     //------------------------------------------------------------QAC Account Update page

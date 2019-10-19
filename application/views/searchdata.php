@@ -19,7 +19,7 @@
 
 
             <?php
-            if($_SESSION['account_type']!='admin'){
+            if($_SESSION['account_post']!='qac_head'){
                 ?>
                 <span class="text-danger"><?php echo form_error('pw')?></span>
                 <span class="text-danger"><?php echo form_error('confirm_pw')?></span>
@@ -81,16 +81,23 @@
                         <form method="post" action="<?php echo base_url();?>login_controller/update_and_delete_user_accounts">
 
                                 <br/>
+							<?php
+							if($_SESSION['post']=='qac'){
+							?>
+								<div class="form-group">
+									<label for="type">Type</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="type">Post</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+								</div>
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
                                     <span class="text-danger"><?php echo form_error('username')?></span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="type">Type</label>
-                                    <input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo $_SESSION['account_type'];?>" readonly>
 
-                                </div>
                                 <div class="form-group">
                                     <label for="email">E-mail</label>
                                     <input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
@@ -106,6 +113,60 @@
                                     <input type="password" class="form-control" name="con_password" id="con_password" >
                                     <span class="text-danger"><?php echo form_error('con_password')?></span>
                                 </div>
+								<?php
+							}elseif ($_SESSION['post']=='qac_head'){
+								?>
+								<div class="form-group">
+									<label for="type">Type</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="type">Post</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="username">Type</label>
+									<select class="form-control" name="type" id="a_type">
+										<option class="text-muted"></option>
+										<option name="type" value="under_graduate">Under Graduate</option>
+										<option name="type" value="post_graduate">Post Graduate</option>
+										<option name="type" value="external">External</option>
+										<option name="type" value="qac">QAC</option>
+										<option name="type" value="head_of_institute">Head of institute</option>
+									</select>
+									<span class="text-danger"><?php echo form_error('type')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Post</label>
+									<select class="form-control" name="post" id="a_post">
+										<option class="text-muted"></option>
+									</select>
+									<span class="text-danger"><?php echo form_error('post')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
+									<span class="text-danger"><?php echo form_error('username')?></span>
+								</div>
+
+								<div class="form-group">
+									<label for="email">E-mail</label>
+									<input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
+									<span class="text-danger"><?php echo form_error('email')?></span>
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+							<?php
+							}
+							?>
 
                                 <br/>
                                 <center><button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button></center>
@@ -128,4 +189,51 @@
 <?php include 'footer.php';?>
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+        $('#a_type').change(function(){
+            var a_type = $('#a_type').val();
+            if(a_type == 'head_of_institute')
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option value="head_of_institute">Head of institute</option>');
+                    }
+                });
+            }
+            if(a_type == 'qac')
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option value=""></option>' +'<option value="qac">QAC</option>'+'<option value="qac_head">QAC Head</option>');
+                    }
+                });
+            }
+            if((a_type != 'qac') && (a_type != 'head_of_institute'))
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option value=""></option>' +
+                            '<option name="post" value="user">User</option>' +
+                            '<option name="post" value="head_of_course">Head of Course</option>' +
+                            '<option name="post" value="course_coordinator">Course Coordinator</option>');
+                    }
+                });
+            }
+        });
+    });
+</script>
 

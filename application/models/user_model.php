@@ -310,6 +310,11 @@ class user_model extends CI_Model
 	}
 
 	//------------------------------------------------------------------------------------------------------------------
-
+	function fetch_single_data_users($username,$password){
+		$this->db->where('username', $password);
+		$this->db->where('username', $username);
+		$query = $this->db->get("user");
+		return $query;
+	}
 
 }
