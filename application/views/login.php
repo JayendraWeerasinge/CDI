@@ -11,11 +11,17 @@
 
 <div class="container" style="margin-left:auto; width: 500px ">
 
+
 	<div class="row">
 		<div class="col-4 ">
 			<form method="post" action="<?php echo base_url();?>login_controller/login_validation">
 
 				<div class="form">
+					<?php
+					for($i=0;$i<4;$i++){
+						echo '<br/>';
+					}
+					?>
 					<hr>
 					<span style="color: midnightblue;" >
 						<center><h1>Login</h1></center>
@@ -31,13 +37,13 @@
 						<input type="password" class="form-control" name="password" id="password" placeholder="Enter password"/>
 						<span class="text-danger"><?php echo form_error('password')?></span>
 					</div>
-					<div class="form-group">
+					<!--<div class="form-group">
 						<label for="type">Account type</label>
 						<select class="form-control" name="type">
 							<option class="text-muted">Select Account Type</option>
 							<option name="type" value="qac">QAC</option>
 							<option name="type" value="User">User</option>
-						</select>
+						</select>-->
 
 						<!--<input type="text" class="form-control" name="type" id="type" placeholder="Enter type"/>-->
 						<span class="text-danger"><?php echo form_error('type')?></span>
@@ -47,9 +53,13 @@
 					</div>
 					<center><button type="submit" class="btn btn-primary" name="submit" value="submit">Login</button></center>
 					<hr/>
-					<span class="text-danger"> <?php echo $this->session->flashdata("error")?></span>
+					<span class="text-danger"> <?php echo $this->session->flashdata("error");?></span>
 				</div>
-				<br/><br/><br/><br/><br/><br/>
+		<?php
+			for($i=0;$i<15;$i++){
+				echo '<br/>';
+			}
+		?>
 			</form>
 
 		</div>

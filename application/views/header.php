@@ -31,7 +31,7 @@ $url= basename($actual_link);
 		<ul class="nav navbar-nav navbar-right">
 
 
-				
+
 			<li>
 				<?php
 				if ($this->session->userdata('username') != ''){

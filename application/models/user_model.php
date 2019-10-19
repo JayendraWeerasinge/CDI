@@ -1,10 +1,9 @@
 <?php
 class user_model extends CI_Model
 {
-	function can_login($username, $password,$type){
+	function can_login($username, $password){
 		$this->db->where('username', $username);
 		$this->db->where('password', $password);
-		$this->db->where('type', $type);
 
 		$query = $this->db->get('user');
 		//SELECT * FROM users WHERE username = '$username' AND password = '$password'
@@ -16,6 +15,11 @@ class user_model extends CI_Model
 		{
 			return false;
 		}
+	}
+
+	function userdetails(){
+		$query = $this->db->get('user');
+		return $query;
 	}
 
 	function update_user_account_data($data,$username){

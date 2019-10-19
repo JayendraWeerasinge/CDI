@@ -11,27 +11,46 @@ class login_controller extends CI_Controller
 
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('type', 'type', 'required');
+       // $this->form_validation->set_rules('type', 'type', 'required');
+
+
+
+
 
         if ($this->form_validation->run()) {
 
+
+
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-            $type = $this->input->post('type');
+           // $type = $this->input->post('type');
             //-----------------------------------
             $this->load->model('user_model');
 
-            if ($this->user_model->can_login($username, $password, $type)) {
+
+			$this->load->model('user_model');
+			$data['fetch_data'] = $this->user_model->userdetails();
+			if ($data['fetch_data']->num_rows() > 0) {
+				foreach ($data['fetch_data']->result() as $row) {
+
+					if(($username==$row->username)&&($password = $row->password)){
+						$_SESSION['type']=$row->type;
+					}
+				}
+			}
+
+
+            if ($this->user_model->can_login($username, $password)) {
                 $session_data = array(
                     'username' => $username,
-                    'type' => $type,
                     'password'=>$password
                 );
+
 
                 $this->session->set_userdata($session_data);
                 redirect(base_url() . 'login_controller/enter');
                 $this->session->set_userdata('username');
-                $this->session->set_userdata('type');
+                $this->session->set_userdata($_SESSION['type']);
                 $this->session->set_userdata('password');
 
 
