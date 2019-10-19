@@ -213,9 +213,14 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('email', 'E mail', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('con_password', 'confirm password', 'required|matches[password]');
+
+
         if ($this->form_validation->run()) {
             $this->load->model('user_model');
+
             $data = array(
+				"type" => $this->input->post("type"),
+				"post" => $this->input->post("post"),
                 "username" => $this->input->post("username"),
                 "password" => $this->input->post("password"),
                 "email" => $this->input->post("email")

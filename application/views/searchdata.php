@@ -117,28 +117,28 @@
 							}elseif ($_SESSION['post']=='qac_head'){
 								?>
 								<div class="form-group">
-									<label for="type">Type</label>
+									<label for="type">Current Type</label>
 									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
 								</div>
 								<div class="form-group">
-									<label for="type">Post</label>
-									<input style="color: black;" type="text" class="form-control" name="type" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+									<label for="type">Current Post</label>
+									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
 								</div>
 								<div class="form-group">
-									<label for="username">Type</label>
-									<select class="form-control" name="type" id="a_type">
+									<label for="username">New Type</label>
+									<select class="form-control" name="checktype" id="a_type">
 										<option class="text-muted"></option>
-										<option name="type" value="under_graduate">Under Graduate</option>
-										<option name="type" value="post_graduate">Post Graduate</option>
-										<option name="type" value="external">External</option>
-										<option name="type" value="qac">QAC</option>
-										<option name="type" value="head_of_institute">Head of institute</option>
+										<option name="checktype" value="under_graduate">Under Graduate</option>
+										<option name="checktype" value="post_graduate">Post Graduate</option>
+										<option name="checktype" value="external">External</option>
+										<option name="checktype" value="qac">QAC</option>
+										<option name="checktype" value="head_of_institute">Head of institute</option>
 									</select>
 									<span class="text-danger"><?php echo form_error('type')?></span>
 								</div>
 								<div class="form-group">
-									<label for="username">Post</label>
-									<select class="form-control" name="post" id="a_post">
+									<label for="username">New Post</label>
+									<select class="form-control" name="checkpost" id="a_post">
 										<option class="text-muted"></option>
 									</select>
 									<span class="text-danger"><?php echo form_error('post')?></span>
@@ -202,7 +202,7 @@
                     data:{a_type:a_type},
                     success:function(data)
                     {
-                        $('#a_post').html('<option value="head_of_institute">Head of institute</option>');
+                        $('#a_post').html('<option name="checkpost" value="head_of_institute">Head of institute</option>');
                     }
                 });
             }
@@ -214,7 +214,7 @@
                     data:{a_type:a_type},
                     success:function(data)
                     {
-                        $('#a_post').html('<option value=""></option>' +'<option value="qac">QAC</option>'+'<option value="qac_head">QAC Head</option>');
+                        $('#a_post').html('<option name="checkpost" value=""></option>' +'<option name="checkpost" value="qac">QAC</option>'+'<option name="checkpost" value="qac_head">QAC Head</option>');
                     }
                 });
             }
@@ -227,9 +227,9 @@
                     success:function(data)
                     {
                         $('#a_post').html('<option value=""></option>' +
-                            '<option name="post" value="user">User</option>' +
-                            '<option name="post" value="head_of_course">Head of Course</option>' +
-                            '<option name="post" value="course_coordinator">Course Coordinator</option>');
+                            '<option name="checkpost" value="user">User</option>' +
+                            '<option name="checkpost" value="head_of_course">Head of Course</option>' +
+                            '<option name="checkpost" value="course_coordinator">Course Coordinator</option>');
                     }
                 });
             }
