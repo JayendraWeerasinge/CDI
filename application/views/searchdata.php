@@ -86,7 +86,7 @@
 
                                 <br/>
 							<?php
-							if($_SESSION['post']=='qac'){
+							if(($_SESSION['post']=='qac')){
 							?>
 								<div class="form-group">
 									<label for="type">Type</label>
@@ -139,7 +139,7 @@
 								?>
 								<br/>
 								<center>
-									<h4 class="text-danger">You cant edit this profile. Contact <a><?php echo $_SESSION['account_username'];?></a> or <a>QAC Head</a></h4>
+									<h4 class="text-danger">You cant edit or delete this profile. Contact <a><?php echo $_SESSION['account_username'];?></a> or <a>QAC Head</a></h4>
 								</center>
 							<?php
 							}
@@ -148,6 +148,58 @@
 
 								<?php
 							}elseif ($_SESSION['post']=='qac_head'){
+								?>
+								<div class="form-group">
+									<label for="type">Current Type</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="type">Current Post</label>
+									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="username">New Type</label>
+									<select class="form-control" name="checktype" id="a_type">
+										<option class="text-muted"></option>
+										<option name="checktype" value="under_graduate">Under Graduate</option>
+										<option name="checktype" value="post_graduate">Post Graduate</option>
+										<option name="checktype" value="external">External</option>
+										<option name="checktype" value="qac">QAC</option>
+										<option name="checktype" value="head_of_institute">Head of institute</option>
+									</select>
+									<span class="text-danger"><?php echo form_error('type')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">New Post</label>
+									<select class="form-control" name="checkpost" id="a_post">
+										<option class="text-muted"></option>
+									</select>
+									<span class="text-danger"><?php echo form_error('post')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
+									<span class="text-danger"><?php echo form_error('username')?></span>
+								</div>
+
+								<div class="form-group">
+									<label for="email">E-mail</label>
+									<input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
+									<span class="text-danger"><?php echo form_error('email')?></span>
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+							<?php
+							}
+							if ($_SESSION['post']=='head_of_institute'){
 								?>
 								<div class="form-group">
 									<label for="type">Current Type</label>

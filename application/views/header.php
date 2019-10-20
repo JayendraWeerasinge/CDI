@@ -67,5 +67,5 @@ $url= basename($actual_link);
 
 		</ul>
 	</div>
-</nav>
+
 </nav>

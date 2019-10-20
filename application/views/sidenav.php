@@ -36,13 +36,18 @@ $url= basename($actual_link);
 					}
 					?>"><a href="<?php echo base_url();?>login_controller/manageAccount">Manage Accounts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
 					</li>
-                    <li class="<?php if($url == "Document_Settings" || $url == "add_subject"|| $url == "View_cat_details" ||$url == "insertCat" ||$url == 'reopen_View_cat_details'){echo 'active';} ?>"><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
 					<?php
+					if($this->session->userdata('type')!='head_of_institute'){
+						?>
+						<li class="<?php if($url == "Document_Settings" || $url == "add_subject"|| $url == "View_cat_details" ||$url == "insertCat" ||$url == 'reopen_View_cat_details'){echo 'active';} ?>"><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
+						<?php
+					}
 				}
 				?>
 				<li class="<?php if($url == "useraccountupdate"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>
 
 			</ul><br>
+
 		</div>
 </div>
 
