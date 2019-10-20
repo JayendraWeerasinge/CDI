@@ -94,7 +94,7 @@
 								</div>
 								<div class="form-group">
 									<label for="type">Post</label>
-									<input style="color: black;" type="text" class="form-control" name="type" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
 								</div>
                                 <div class="form-group">
                                     <label for="username">Username</label>
@@ -107,16 +107,45 @@
                                     <input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
                                     <span class="text-danger"><?php echo form_error('email')?></span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" >
-                                    <span class="text-danger"><?php echo form_error('password')?></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="con_password">Confirm Password</label>
-                                    <input type="password" class="form-control" name="con_password" id="con_password" >
-                                    <span class="text-danger"><?php echo form_error('con_password')?></span>
-                                </div>
+							<?php
+							if ((( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute'))){
+							?>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+
+							<?php
+							}elseif (($this->session->userdata('username')==$_SESSION['account_username'])){
+								?>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+								<?php
+							}else{
+								?>
+								<br/>
+								<center>
+									<h4 class="text-danger">You cant edit this profile. Contact <a><?php echo $_SESSION['account_username'];?></a> or <a>QAC Head</a></h4>
+								</center>
+							<?php
+							}
+							?>
+
+
 								<?php
 							}elseif ($_SESSION['post']=='qac_head'){
 								?>
@@ -173,7 +202,21 @@
 							?>
 
                                 <br/>
-                                <center><button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button></center>
+							<?php
+							if(( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute')) {
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+								<?php
+							}elseif (($_SESSION['account_username'])==($this->session->userdata('username'))){
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+							<?php
+							}
+							?>
                             </div>
                             <br/>
                         </form>

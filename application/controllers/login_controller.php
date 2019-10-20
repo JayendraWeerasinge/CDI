@@ -219,8 +219,8 @@ class login_controller extends CI_Controller
             $this->load->model('user_model');
 
             $data = array(
-				"type" => $this->input->post("type"),
-				"post" => $this->input->post("post"),
+				"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
+				"post" => strtolower((str_replace(' ', '_', $this->input->post("post")))),
                 "username" => $this->input->post("username"),
                 "password" => $this->input->post("password"),
                 "email" => $this->input->post("email")
