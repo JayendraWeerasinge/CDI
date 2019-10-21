@@ -18,7 +18,7 @@
 				<br/>
 				<center>
 					<div class="btn-group btn-group-justified" style="width: 95%;">
-						<a href="<?php echo base_url('login_controller/'); ?>" class="btn btn-info">Under Graduate</a>
+						<a href="<?php echo base_url('login_controller/Document_Settings'); ?>" class="btn btn-info">Under Graduate</a>
 						<a class="btn btn-primary">Post Graduate</a>
 						<a href="<?php echo base_url('login_controller/'); ?>" class="btn btn-info">External</a>
 					</div>

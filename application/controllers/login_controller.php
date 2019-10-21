@@ -8,31 +8,16 @@ class login_controller extends CI_Controller
     public function login_validation()
     {
         $this->load->library('form_validation');
-
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
-       // $this->form_validation->set_rules('type', 'type', 'required');
 
         if ($this->form_validation->run()) {
 
             $username = $this->input->post('username');
             $password = $this->input->post('password');
            // $type = $this->input->post('type');
-            //-----------------------------------
-            $this->load->model('user_model');
-
-
+            //---------------------------
 			$this->load->model('user_model');
-			$data['fetch_data'] = $this->user_model->userdetails();
-			if ($data['fetch_data']->num_rows() > 0) {
-				foreach ($data['fetch_data']->result() as $row) {
-
-					if(($username==$row->username)&&($password = $row->password)){
-						$_SESSION['type']=$row->type;
-						$_SESSION['post']=$row->post;
-					}
-				}
-			}
 
 
             if ($this->user_model->can_login($username, $password)) {
@@ -40,25 +25,30 @@ class login_controller extends CI_Controller
                     'username' => $username,
                     'password'=>$password
                 );
-
-
+				$data['fetch_data'] = $this->user_model->userdetails();
+				if ($data['fetch_data']->num_rows() > 0) {
+					foreach ($data['fetch_data']->result() as $row) {
+						if(($username==$row->username)&&($password = $row->password)){
+							$_SESSION['type']=$row->type;
+							$_SESSION['post']=$row->post;
+						}
+					}
+				}
                 $this->session->set_userdata($session_data);
                 redirect(base_url() . 'login_controller/enter');
                 $this->session->set_userdata('username');
                 $this->session->set_userdata($_SESSION['type']);
                 $this->session->set_userdata('password');
-
-
             } else {
                 $this->session->set_flashdata('error', 'Invalid Username or Password');
                 redirect(base_url() . 'login_controller/login');
             }
 
+
         } else {
 
             $this->login();
         }
-
     }
 
     public function login()
