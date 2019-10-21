@@ -49,8 +49,16 @@ $url= basename($actual_link);
 					<?php
 				}else{?>
 				<a href="<?php echo site_url('login_controller/login');?>"name="submit" value="submit"  style="color:mediumturquoise;">
-					<span class="glyphicon glyphicon-log-in"></span><?php
-					echo ' Login ';
+					<?php
+					if(($this->session->userdata('username') == '')&&($url=="login")){
+						echo '';
+					}else{
+						?>
+						<span class="glyphicon glyphicon-log-in"></span>
+					<?php
+						echo ' Login ';
+					}
+
 					}?></a>
 			</li>
 			<li><a href="<?php echo site_url('login_controller/logout');?>"name="submit" value="submit"  style="color:mediumturquoise;">
