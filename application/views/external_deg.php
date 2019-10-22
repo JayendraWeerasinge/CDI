@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Post graduate</title>
+	<title>External Degrees</title>
 	<?php include 'header.php';
 	include 'autologout.php';?>
 </head>
@@ -19,8 +19,8 @@
 				<center>
 					<div class="btn-group btn-group-justified" style="width: 95%;">
 						<a href="<?php echo base_url('login_controller/'); ?>" class="btn btn-info">Under Graduate</a>
-						<a class="btn btn-primary">Post Graduate</a>
-						<a href="<?php echo base_url('login_controller/'); ?>" class="btn btn-info">External</a>
+						<a href="<?php echo base_url('login_controller/'); ?>" class="btn btn-info">Post Graduate</a>
+                        <a class="btn btn-primary">External</a>
 					</div>
 				</center>
 			</div>
@@ -53,7 +53,7 @@
                             <span style="color: midnightblue;" >
 						                    <center><h1>Add Categories</h1></center>
                                          </span>
-                            <form method="post" action="<?php echo base_url();?>login_controller/insertPostgraduate">
+                            <form method="post" action="<?php echo base_url();?>login_controller/insertExternal">
                                 <br/>
                                 <div class="form-group">
                                     <label for="username">Category</label>

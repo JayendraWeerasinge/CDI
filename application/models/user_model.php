@@ -76,6 +76,15 @@ class user_model extends CI_Model
         $this->db->insert("category_data",$data);
     }
 
+    function insert_External($data){
+        $this->db->insert("external",$data);
+    }
+
+    function insert_Postgraduate($data){
+        $this->db->insert("postgraduate",$data);
+    }
+
+
     function fetch_cat(){
         $query = $this->db->get("category_data");
         return $query;
