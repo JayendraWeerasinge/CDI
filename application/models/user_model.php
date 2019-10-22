@@ -1,10 +1,9 @@
 <?php
 class user_model extends CI_Model
 {
-	function can_login($username, $password,$type){
+	function can_login($username, $password){
 		$this->db->where('username', $username);
 		$this->db->where('password', $password);
-		$this->db->where('type', $type);
 
 		$query = $this->db->get('user');
 		//SELECT * FROM users WHERE username = '$username' AND password = '$password'
@@ -16,6 +15,11 @@ class user_model extends CI_Model
 		{
 			return false;
 		}
+	}
+
+	function userdetails(){
+		$query = $this->db->get('user');
+		return $query;
 	}
 
 	function update_user_account_data($data,$username){
@@ -59,6 +63,8 @@ class user_model extends CI_Model
         if ($query != '') {
             $this->db->like('username', $query);
             $this->db->or_like('email', $query);
+			$this->db->or_like('post', $query);
+			$this->db->or_like('type', str_replace(' ', '_',$query));
         }
         $this->db->order_by('username', 'ASC');
         return $this->db->get();
@@ -100,7 +106,7 @@ class user_model extends CI_Model
 	}
 
 	function fetch_accounts_qac(){
-		$this->db->where("type",'QAC');
+		$this->db->where("type",'qac');
 		$query = $this->db->get("user");
 		return $query;
 	}
@@ -314,6 +320,11 @@ class user_model extends CI_Model
 	}
 
 	//------------------------------------------------------------------------------------------------------------------
-
+	function fetch_single_data_users($username,$password){
+		$this->db->where('username', $password);
+		$this->db->where('username', $username);
+		$query = $this->db->get("user");
+		return $query;
+	}
 
 }

@@ -25,6 +25,9 @@
             ?>
             <br/>
 
+			<div style="color: wheat;">
+				You are here : <a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('login_controller/Document_Settings')?>"> Document Settings </a>  ><a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('login_controller/Document_Settings')?>"> Under Graduate </a> > View
+			</div>
 
 
             <div class="container">

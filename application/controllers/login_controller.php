@@ -8,43 +8,47 @@ class login_controller extends CI_Controller
     public function login_validation()
     {
         $this->load->library('form_validation');
-
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('type', 'type', 'required');
 
         if ($this->form_validation->run()) {
 
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-            $type = $this->input->post('type');
-            //-----------------------------------
-            $this->load->model('user_model');
+           // $type = $this->input->post('type');
+            //---------------------------
+			$this->load->model('user_model');
 
-            if ($this->user_model->can_login($username, $password, $type)) {
+
+            if ($this->user_model->can_login($username, $password)) {
                 $session_data = array(
                     'username' => $username,
-                    'type' => $type,
                     'password'=>$password
                 );
-
+				$data['fetch_data'] = $this->user_model->userdetails();
+				if ($data['fetch_data']->num_rows() > 0) {
+					foreach ($data['fetch_data']->result() as $row) {
+						if(($username==$row->username)&&($password = $row->password)){
+							$_SESSION['type']=$row->type;
+							$_SESSION['post']=$row->post;
+						}
+					}
+				}
                 $this->session->set_userdata($session_data);
                 redirect(base_url() . 'login_controller/enter');
                 $this->session->set_userdata('username');
-                $this->session->set_userdata('type');
+                $this->session->set_userdata($_SESSION['type']);
                 $this->session->set_userdata('password');
-
-
             } else {
                 $this->session->set_flashdata('error', 'Invalid Username or Password');
                 redirect(base_url() . 'login_controller/login');
             }
 
+
         } else {
 
             $this->login();
         }
-
     }
 
     public function login()
@@ -69,6 +73,7 @@ class login_controller extends CI_Controller
         redirect(base_url() . 'login_controller/login');
     }
 
+    /* ---------------------------------------------------------------useless
     public function QAC_Create_validation()
     {
         $this->load->library('form_validation');
@@ -96,17 +101,18 @@ class login_controller extends CI_Controller
         } else {
             $this->qacForm();
         }
-    }
+    }*/
 
-    public function qacForm()
-    {
-        $this->load->view('qacform');
-    }
-
-    public function qacinserted()
-    {
-        $this->qacForm();
-    }
+	/*-------------------------------------------------------------useless
+	public function qacForm()
+	{
+		$this->load->view('qacform');
+	}*/
+/*-------------------------------------------------------------useless
+	public function qacinserted()
+	{
+		$this->qacForm();
+	}*/
 
     //----------------------------------------------------------------------QAC
 
@@ -117,14 +123,17 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('username', 'Username', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('post', 'Post', 'required');
+		$this->form_validation->set_rules('type', 'Type', 'required');
 
         if ($this->form_validation->run()) {
             $this->load->model('user_model');
             $data = array(
                 "username" => $this->input->post("username"),
                 "password" => $this->input->post("password"),
-                "type" => "User",
-                "email" => $this->input->post("email")
+                "type" => $this->input->post("type"),
+                "email" => $this->input->post("email"),
+				"post" => $this->input->post("post")
             );
             $this->user_model->insert_data($data);
             ?>
@@ -194,9 +203,14 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('email', 'E mail', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
         $this->form_validation->set_rules('con_password', 'confirm password', 'required|matches[password]');
+
+
         if ($this->form_validation->run()) {
             $this->load->model('user_model');
+
             $data = array(
+				"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
+				"post" => strtolower((str_replace(' ', '_', $this->input->post("post")))),
                 "username" => $this->input->post("username"),
                 "password" => $this->input->post("password"),
                 "email" => $this->input->post("email")
@@ -205,7 +219,7 @@ class login_controller extends CI_Controller
             redirect(base_url() . "login_controller/manageAccount");
 
         }else{
-            $this->filter();
+            $this->refilter();
         }
 
     }
@@ -233,10 +247,6 @@ class login_controller extends CI_Controller
     }
 //-----------------------------------------------------------------------------------------
     public function refilter(){
-        $_SESSION['account_username'];
-        $_SESSION['account_password'];
-        $_SESSION['account_type'];
-        $_SESSION['account_email'];
         $this->load->view('searchdata');
     }
 
@@ -246,6 +256,7 @@ class login_controller extends CI_Controller
         $_SESSION['account_password']=$this->input->post('password');
         $_SESSION['account_type']=$this->input->post('type');
         $_SESSION['account_email']=$this->input->post('email');
+		$_SESSION['account_post']=$this->input->post('post');
         $this->load->view('searchdata');
     }
     //------------------------------------------------------------QAC Account Update page
@@ -837,7 +848,6 @@ class login_controller extends CI_Controller
     
 
 	//------------------------------------------------------------------------------------------------------------------
-
 
 
 }

@@ -18,15 +18,21 @@
         <div class="col-sm-10">
 
 
-            <?php
-            if($_SESSION['account_type']!='admin'){
-                ?>
+
                 <span class="text-danger"><?php echo form_error('pw')?></span>
                 <span class="text-danger"><?php echo form_error('confirm_pw')?></span>
 
                 <div class="container">
                     <div align="right">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
+						<?php
+						if(($this->session->userdata('username')==$_SESSION['account_username'])||( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute')){
+							?>
+							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
+
+						<?php
+						}
+						?>
+
                     </div>
                     <div class="modal fade" id="delete" role="dialog">
                         <div class="modal-dialog">
@@ -66,9 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <?php
-            }
-            ?>
+
 
 
             <hr>
@@ -81,34 +85,190 @@
                         <form method="post" action="<?php echo base_url();?>login_controller/update_and_delete_user_accounts">
 
                                 <br/>
+							<?php
+							if(($_SESSION['post']=='qac')){
+							?>
+								<div class="form-group">
+									<label for="type">Type</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="type">Post</label>
+									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+								</div>
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
                                     <span class="text-danger"><?php echo form_error('username')?></span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="type">Type</label>
-                                    <input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo $_SESSION['account_type'];?>" readonly>
 
-                                </div>
                                 <div class="form-group">
                                     <label for="email">E-mail</label>
                                     <input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
                                     <span class="text-danger"><?php echo form_error('email')?></span>
                                 </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password" >
-                                    <span class="text-danger"><?php echo form_error('password')?></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="con_password">Confirm Password</label>
-                                    <input type="password" class="form-control" name="con_password" id="con_password" >
-                                    <span class="text-danger"><?php echo form_error('con_password')?></span>
-                                </div>
+							<?php
+							if ((( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute'))){
+							?>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+
+							<?php
+							}elseif (($this->session->userdata('username')==$_SESSION['account_username'])){
+								?>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+								<?php
+							}else{
+								?>
+								<br/>
+								<center>
+									<h4 class="text-danger">You cant edit or delete this profile. Contact <a><?php echo $_SESSION['account_username'];?></a> or <a>QAC Head</a></h4>
+								</center>
+							<?php
+							}
+							?>
+
+
+								<?php
+							}elseif ($_SESSION['post']=='qac_head'){
+								?>
+								<div class="form-group">
+									<label for="type">Current Type</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="type">Current Post</label>
+									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="username">New Type</label>
+									<select class="form-control" name="checktype" id="a_type">
+										<option class="text-muted"></option>
+										<option name="checktype" value="under_graduate">Under Graduate</option>
+										<option name="checktype" value="post_graduate">Post Graduate</option>
+										<option name="checktype" value="external">External</option>
+										<option name="checktype" value="qac">QAC</option>
+										<option name="checktype" value="head_of_institute">Head of institute</option>
+									</select>
+									<span class="text-danger"><?php echo form_error('type')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">New Post</label>
+									<select class="form-control" name="checkpost" id="a_post">
+										<option class="text-muted"></option>
+									</select>
+									<span class="text-danger"><?php echo form_error('post')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
+									<span class="text-danger"><?php echo form_error('username')?></span>
+								</div>
+
+								<div class="form-group">
+									<label for="email">E-mail</label>
+									<input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
+									<span class="text-danger"><?php echo form_error('email')?></span>
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+							<?php
+							}
+							if ($_SESSION['post']=='head_of_institute'){
+								?>
+								<div class="form-group">
+									<label for="type">Current Type</label>
+									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="type">Current Post</label>
+									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+								</div>
+								<div class="form-group">
+									<label for="username">New Type</label>
+									<select class="form-control" name="checktype" id="a_type">
+										<option class="text-muted"></option>
+										<option name="checktype" value="under_graduate">Under Graduate</option>
+										<option name="checktype" value="post_graduate">Post Graduate</option>
+										<option name="checktype" value="external">External</option>
+										<option name="checktype" value="qac">QAC</option>
+										<option name="checktype" value="head_of_institute">Head of institute</option>
+									</select>
+									<span class="text-danger"><?php echo form_error('type')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">New Post</label>
+									<select class="form-control" name="checkpost" id="a_post">
+										<option class="text-muted"></option>
+									</select>
+									<span class="text-danger"><?php echo form_error('post')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Username</label>
+									<input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
+									<span class="text-danger"><?php echo form_error('username')?></span>
+								</div>
+
+								<div class="form-group">
+									<label for="email">E-mail</label>
+									<input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
+									<span class="text-danger"><?php echo form_error('email')?></span>
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+							<?php
+							}
+							?>
 
                                 <br/>
-                                <center><button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button></center>
+							<?php
+							if(( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute')) {
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+								<?php
+							}elseif (($_SESSION['account_username'])==($this->session->userdata('username'))){
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+							<?php
+							}
+							?>
                             </div>
                             <br/>
                         </form>
@@ -128,4 +288,51 @@
 <?php include 'footer.php';?>
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+        $('#a_type').change(function(){
+            var a_type = $('#a_type').val();
+            if(a_type == 'head_of_institute')
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option name="checkpost" value="head_of_institute">Head of institute</option>');
+                    }
+                });
+            }
+            if(a_type == 'qac')
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option name="checkpost" value=""></option>' +'<option name="checkpost" value="qac">QAC</option>'+'<option name="checkpost" value="qac_head">QAC Head</option>');
+                    }
+                });
+            }
+            if((a_type != 'qac') && (a_type != 'head_of_institute'))
+            {
+                $.ajax({
+                    url:"",
+                    method:"POST",
+                    data:{a_type:a_type},
+                    success:function(data)
+                    {
+                        $('#a_post').html('<option value=""></option>' +
+                            '<option name="checkpost" value="user">User</option>' +
+                            '<option name="checkpost" value="head_of_course">Head of Course</option>' +
+                            '<option name="checkpost" value="course_coordinator">Course Coordinator</option>');
+                    }
+                });
+            }
+        });
+    });
+</script>
 

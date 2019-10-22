@@ -20,9 +20,25 @@
 							<li><a href="<?php echo base_url('Home/index')?>"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span> Home</a></li>
 							<li><a href="<?php echo base_url('Home/viewDocument')?>">View Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-search"></span></a></li>
 							<!--<li><a href="<?php echo base_url();?>login_controller/editFile"" > Edit Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-edit"></span></a></li>
-							--><li><a href="<?php echo base_url();?>login_controller/uploadFile"> Upload Document<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-upload"></span></a></li>
+							-->
+							<?php
+							if(($this->session->userdata('type')!='head_of_institute')){
+								?>
+								<li><a href="<?php echo base_url();?>login_controller/uploadFile"> Upload Document<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-upload"></span></a></li>
+								<?php
+							}
+							?>
+
 							<li class="active"><a href="<?php echo base_url();?>login_controller/manageAccount">Manage Accounts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
-                            <li><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-asterisk"></span> Document Settings</a></li>
+								<?php
+								if(($this->session->userdata('type')!='head_of_institute')){
+								?>
+							<li><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
+						<?php
+						}
+						?>
+							<li class="<?php if($url == "useraccountupdate"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>
+
 						</ul><br>
 					</div>
 				</div>
@@ -35,7 +51,6 @@
             <center>
 			<div class="btn-group btn-group-justified" style="width: 95%;">
 				<a class="btn btn-primary">Admin Settings</a>
-				<a href="<?php echo base_url('login_controller/qacForm'); ?>" class="btn btn-info">Create QAC Accounts</a>
 				<a href="<?php echo base_url('login_controller/userForm'); ?>" class="btn btn-info">Create User Accounts</a>
 			</div>
             </center>
@@ -72,7 +87,7 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon" style="height: 50px;">Search</span>
-                        <input type="text" name="search_text" id="search_text" placeholder="Search by User Name or Email" class="form-control" style="width: 450px;" />
+                        <input type="text" name="search_text" id="search_text" placeholder="Search by User Name, Email, Type or Post" class="form-control" style="width: 450px;" />
                     </div>
                 </div>
 

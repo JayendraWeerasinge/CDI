@@ -12,6 +12,18 @@
         <div class="col-sm-2">
             <?php include 'sidenav.php';?>
         </div>
+		<div class="col-sm-10" >
+			<div class="row">
+				<br/>
+				<center>
+					<div class="btn-group btn-group-justified" style="width: 95%;">
+						<a class="btn btn-primary">Under Graduate</a>
+						<a href="<?php echo base_url('login_controller/Post_Graduate'); ?>" class="btn btn-info">Post Graduate</a>
+						<a href="<?php echo base_url('login_controller/'); ?>" class="btn btn-info">External</a>
+					</div>
+				</center>
+			</div>
+		</div>
         <div class="col-sm-5">
             <?php
             $count=0;
@@ -21,6 +33,8 @@
                 }
             }
             ?>
+
+
 
             <br/>
             <br/>
@@ -61,11 +75,13 @@
                                 </div>
                                 <center><button type="submit" class="btn btn-primary" name="submit" value="submit">Enter</button></center>
                             </form>
+							<hr/>
                         </div>
                     </div>
                 </div>
             </div>
 
+			<!--
             <div class="container" style="margin-left:auto; width: 500px ">
                 <div class="row">
                     <div class="col-4 ">
@@ -128,6 +144,8 @@
                     </div>
                 </div>
             </div>
+
+			-->
         </div>
 
     </div>

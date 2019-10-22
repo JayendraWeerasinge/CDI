@@ -28,13 +28,28 @@
 					foreach ($user_data->result() as $row){ ?>
 
 					<div class="form-group">
+						<label for="type">Type</label>
+						<input style="color: #0f18d1;"  type="text" class="form-control" name="type" id="type" value="<?php echo str_ireplace('_',' ',$row->type);?>" readonly>
+						<span class="text-danger"><?php echo form_error('email') ?></span>
+					</div>
+					<div class="form-group">
+						<label for="post">Post</label>
+						<input style="color: #0f18d1;"  type="text" class="form-control" name="post" id="post" value="<?php echo $row->post;?>" readonly>
+						<span class="text-danger"><?php echo form_error('email') ?></span>
+					</div>
+					<div class="form-group">
 						<label for="username">Username</label>
 						<input style="color: #0f18d1;" type="text" class="form-control" id="username" name="username" value="<?php echo $row->username;?>" readonly/>
 						<span class="text-danger"><?php echo form_error('username') ?></span>
 					</div>
 					<div class="form-group">
 						<label for="text">Current Password</label>
-						<input style="color: #0f18d1" type="text" class="form-control" name="cpassword" id="password" placeholder="Enter password" value="<?php echo $row->password;?>" readonly/>
+						<input style="color: #0f18d1;" type="text" class="form-control" name="cpassword" id="password" placeholder="Enter password" value="<?php echo $row->password;?>" readonly/>
+					</div>
+					<div class="form-group">
+						<label for="email">E-mail</label>
+						<input type="email" class="form-control" name="email" id="email" placeholder="Enter E-mail" value="<?php echo $row->email;?>" />
+						<span class="text-danger"><?php echo form_error('email') ?></span>
 					</div>
 					<div class="form-group">
 						<label for="password">New Password / Current Password</label>
@@ -48,11 +63,7 @@
 						<input type="password" class="form-control" name="conpass" id="password" placeholder="Re-enter password"/>
 						<span class="text-danger"><?php echo form_error('conpass') ?></span>
 					</div>
-					<div class="form-group">
-						<label for="email">E-mail</label>
-						<input type="email" class="form-control" name="email" id="email" placeholder="Enter E-mail" value="<?php echo $row->email;?>" />
-						<span class="text-danger"><?php echo form_error('sendMail') ?></span>
-					</div>
+
 
 					<center><button type="submit" class="btn btn-primary" name="update" value="Update">Update</button><center>
 							<hr/>
