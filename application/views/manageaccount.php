@@ -19,8 +19,6 @@
 						<ul class="nav nav-pills nav-stacked">
 							<li><a href="<?php echo base_url('Home/index')?>"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span> Home</a></li>
 							<li><a href="<?php echo base_url('Home/viewDocument')?>">View Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-search"></span></a></li>
-							<!--<li><a href="<?php echo base_url();?>login_controller/editFile"" > Edit Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-edit"></span></a></li>
-							-->
 							<?php
 							if(($this->session->userdata('type')!='head_of_institute')){
 								?>
@@ -36,9 +34,23 @@
 							<li><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
 						<?php
 						}
-						?>
+							if(($this->session->userdata('type')=='head_of_institute')||($this->session->userdata('type')=='qac_head')||($this->session->userdata('type')=='qac')){
+								?>
+								<li><a href="<?php echo base_url()?>login_controller/Report"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-folder-open"></span> Report (Posts)</a></li>
+								<?php
+							}
+							?>
 							<li class="<?php if($url == "useraccountupdate"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>
-
+							<li><a href="<?php echo base_url();?>login_controller/send_message"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span>Message</a></li>
+							<?php
+							if($this->session->userdata('post')=='qac_head') {
+								?>
+								<li><a href="<?php echo base_url(); ?>Home/BackUp"><span style="font-size:16px;"
+																						 class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-upload"></span>Backup</a>
+								</li>
+								<?php
+							}
+							?>
 						</ul><br>
 					</div>
 				</div>
@@ -47,16 +59,54 @@
 		<div class="col-sm-10 text-left">
 			<!-- content -->
 			<br/>
+
+
             <div class="row">
             <center>
 			<div class="btn-group btn-group-justified" style="width: 95%;">
-				<a class="btn btn-primary">Admin Settings</a>
-				<a href="<?php echo base_url('login_controller/userForm'); ?>" class="btn btn-info">Create User Accounts</a>
+
+				<?php
+				if($_SESSION['type']=='head_of_institute'){
+					?>
+					<?php
+				}else{
+					?>
+					<a class="btn btn-primary">Admin Settings</a>
+					<a href="<?php echo base_url('login_controller/userForm'); ?>" class="btn btn-info">Create User Accounts</a>
+				<?php
+				}
+				?>
 			</div>
             </center>
             </div>
 			<br/>
-			<h1>User Accounts and Passwords</h1>
+			<?php
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}if($this->session->flashdata('msg1')){
+				?>
+				<div class="alert alert-success">
+					<span class="text-success"> <?php echo $this->session->flashdata('msg1'); ?></span>
+				</div>
+				<?php
+			}
+			?>
+
+			<?php
+			if($_SESSION['type']=='head_of_institute'){
+				?>
+				<h1>User Accounts</h1>
+				<?php
+			}else{
+				?>
+				<h1>User Accounts and Passwords</h1>
+				<?php
+			}
+			?>
 			<br>
 			<?php
 			$count=0;
@@ -65,24 +115,12 @@
 					$count=$count+1;
 				}
 			}
-			$countuser=0;
-			if ($fetch_data_user->num_rows() > 0) {
-				foreach ($fetch_data_user->result() as $row) {
-					$countuser=$countuser+1;
-				}
-			}
-			$countqac=0;
-			if ($fetch_data_qac->num_rows() > 0) {
-				foreach ($fetch_data_qac->result() as $row) {
-					$countqac=$countqac+1;
-				}
-			}
 			?>
-			<span align="right"><b>Total number of Accounts - <?php echo $count;?></b></span> (
-			<span style="color: #4b4b4b;">User Accounts - <?php echo $countuser;?></span> |
-			<span style="color: #4b4b4b;">QAC Accounts - <?php echo $countqac;?></span> )
-			<br/><br/>
+			<span align="right"><b>Total number of Accounts - <?php echo $count;?></b></span>
+
 			<!-- search -->
+
+			<span class="text-danger"> <?php echo $this->session->flashdata("check_availability");?></span>
             <div class="container ">
                 <div class="form-group">
                     <div class="input-group">
@@ -90,17 +128,11 @@
                         <input type="text" name="search_text" id="search_text" placeholder="Search by User Name, Email, Type or Post" class="form-control" style="width: 450px;" />
                     </div>
                 </div>
-
-
+				<br/>
 				<div id="result"></div>
             </div>
             <div style="clear:both"></div>
-
-			<br/>
-
 		</div>
-
-
 	</div>
 </div>
 </div>

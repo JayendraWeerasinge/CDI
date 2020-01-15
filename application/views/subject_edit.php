@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <title>Edit subjects</title>
     <?php include 'header.php';
-    include 'autologout.php';?>
+    include 'autologout.php';
+	if($this->session->userdata('username') == ''){
+		include 'index.php';
+	}?>
 </head>
 <body>
 
@@ -28,33 +31,33 @@
                     <div class="col-4 ">
             <form method="post" action="<?php echo base_url();?>login_controller/update_subjects_cat">
 
+				<div class="form-group">
+					<label for="username">Subject Code</label>
+					<input type="text" style="color:midnightblue; " class="form-control" id="subject_code" name="subject_code" value="<?php echo $_SESSION['subject_code'];?>"readonly>
+					<span class="text-danger"><?php echo form_error('subject_code')?></span>
+				</div>
+				<div class="form-group">
+					<label for="username">Subject Name - <font color="gray" ><?php echo $_SESSION['subject_name'];?></font></label>
+					<input type="text" class="form-control" id="subject_name" name="subject_name" value="<?php echo $_SESSION['subject_name'];?>" />
+					<span class="text-danger"><?php echo form_error('subject_name')?></span>
+				</div>
                 <div class="form-group">
-                    <label for="username">Subject Name</label>
-                    <input type="text" class="form-control" id="subject_name" name="subject_name" value="<?php echo $_SESSION['subject_name'];?>" />
-                    <span class="text-danger"><?php echo form_error('subject_name')?></span>
-                </div>
-                <div class="form-group">
-                    <label for="username">Subject Code</label>
-                    <input type="text" class="form-control" id="subject_code" name="subject_code" value="<?php echo $_SESSION['subject_code'];?>"/>
-                    <span class="text-danger"><?php echo form_error('subject_code')?></span>
-                </div>
-                <div class="form-group">
-                    <label for="username">Year</label>
-                    <?php if($_SESSION['year']==1){
-                        $s1='selected';
-                        $s2='';$s3='';$s4='';
-                    }elseif($_SESSION['year']==2){
-                        $s2='selected';
-                        $s1='';$s3='';$s4='';
-                    }elseif($_SESSION['year']==3){
-                        $s3='selected';
-                        $s1='';$s2='';$s4='';
-                    }elseif($_SESSION['year']==4){
-                        $s4='selected';
-                        $s1='';$s2='';$s3='';
-                    }else{
-                        $s1='';$s2='';$s3='';$s4='';
-                    }?>
+					<?php if($_SESSION['year']==1){
+						$s1='selected';
+						$s2='';$s3='';$s4='';
+					}elseif($_SESSION['year']==2){
+						$s2='selected';
+						$s1='';$s3='';$s4='';
+					}elseif($_SESSION['year']==3){
+						$s3='selected';
+						$s1='';$s2='';$s4='';
+					}elseif($_SESSION['year']==4){
+						$s4='selected';
+						$s1='';$s2='';$s3='';
+					}else{
+						$s1='';$s2='';$s3='';$s4='';
+					}?>
+                    <label for="username">Year - <font color="gray" >year <?php echo $_SESSION['year'];?></font> </label>
                     <select class="form-control" name="year">
                         <option class="text-muted"></option>
                         <option name="year" value="1" <?php echo $s1;?>>1st year</option>
@@ -65,7 +68,7 @@
                     <span class="text-danger"><?php echo form_error('year')?></span>
                 </div>
                 <div class="form-group">
-                    <label for="username">Semester</label>
+					<label for="username">Semester - <font color="gray" ><?php echo $_SESSION['semester'];?></font></label>
                     <?php if($_SESSION['semester']=='1sem'){
                         $s1='selected';
                         $s2='';

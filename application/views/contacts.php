@@ -23,10 +23,25 @@
 			<!--- type heare---------->
 
 			Contacts
+			<br/><?php
+			echo  $_SESSION['Rpin'];
+			?>
+<br>
 
-            <?php
-            echo $this->session->userdata('password');
-            ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 		</div>

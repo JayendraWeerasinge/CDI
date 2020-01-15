@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Forgot Passward</title>
     <?php include 'header.php';
     include 'autologout.php';?>
 </head>
@@ -11,9 +11,14 @@
 <div class="container-fluid">
 	<div class="row content">
 		<div class="col-sm-2">
-			<?php include 'sidenav.php';?>
+			
 		</div>
 		<div class="col-sm-10">
+
+
+
+
+
 
 
 
